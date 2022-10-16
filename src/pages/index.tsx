@@ -1,17 +1,36 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
+import { http } from "../utils/https";
+import { Product } from "../utils/models";
 
-const Home: NextPage = () => {
+type HomeProps = {
+  products: Product[];
+};
+
+const Home: NextPage<HomeProps> = (props) => {
   return (
     <div>
       <h1>Ecommerce</h1>
 
       <ul>
-        <li>
-          <label>Name: </label> Product 1<a href="">Ver detalhes</a>
-        </li>
+        {props.products.map((product) => (
+          <li key={product.id}>
+            <label>Name: </label> {product.name}
+            <a href="">Ver detalhes</a>
+          </li>
+        ))}
       </ul>
     </div>
   );
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { data: products } = await http.get("products");
+
+  return {
+    props: {
+      products,
+    },
+  };
+};
