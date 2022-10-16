@@ -1,7 +1,4 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
@@ -10,12 +7,11 @@ const Home: NextPage = () => {
 
       <ul>
         <li>
-          <label>Name: </label> Product 1
-          <a href="">Ver detalhes</a>
+          <label>Name: </label> Product 1<a href="">Ver detalhes</a>
         </li>
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
