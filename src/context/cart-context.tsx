@@ -34,7 +34,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   useEffect(() => {
-    if (!products) {
+    if (!products.length) {
       return;
     }
 
