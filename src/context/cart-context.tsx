@@ -1,4 +1,11 @@
-import { createContext, PropsWithChildren, useCallback, useMemo, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Product } from "../utils/models";
 
 export type CartContextType = {
@@ -21,6 +28,18 @@ export const CartContext = createContext(defaultContext);
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
   const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    setProducts(JSON.parse(localStorage.getItem("products") || "[]"));
+  }, []);
+
+  useEffect(() => {
+    if (!products) {
+      return;
+    }
+
+    localStorage.setItem("products", JSON.stringify(products));
+  }, [products]);
 
   const addProduct = useCallback((product: Product) => {
     setProducts((prevProducts) => [...prevProducts, product]);
