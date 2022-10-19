@@ -1,7 +1,11 @@
 import { NextPage } from "next";
-import { FormEvent } from "react";
+import { FormEvent, useContext } from "react";
+
+import { CartContext } from "../../context/cart-context";
 
 const Checkout: NextPage = () => {
+  const cartContext = useContext(CartContext);
+
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
@@ -9,7 +13,17 @@ const Checkout: NextPage = () => {
   return (
     <div>
       <h3>My Cart</h3>
-      
+      <ul>
+        {cartContext.products.map((product) => (
+          <li key={product.id}>
+            {product.name} - {product.price}
+            <button onClick={() => cartContext.removeProduct(product)}>
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
+
       <form onSubmit={onSubmit}>
         <div>
           <label htmlFor="credit_card_number">Credit Card</label>
