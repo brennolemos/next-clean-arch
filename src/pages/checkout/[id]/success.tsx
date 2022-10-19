@@ -1,13 +1,22 @@
 import { GetStaticProps, GetStaticPaths, NextPage } from "next";
 import { http } from "../../../utils/https";
+import { Order } from "../../../utils/models";
 
-const CheckoutSuccess: NextPage = () => {
+type CheckoutSuccessProps = {
+  order: Order;
+};
+
+const CheckoutSuccess: NextPage<CheckoutSuccessProps> = ({ order }) => {
   return (
     <div>
       <h3>Congrats! Order #ID was submited.</h3>
 
       <ul>
-        <li></li>
+        {order.products.map((product) => (
+          <li key={product.id}>
+            {product.name} - {product.price}
+          </li>
+        ))}
       </ul>
     </div>
   );
@@ -25,7 +34,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { data: order } = await http.get(`orders/${id}`);
 
   return {
-    props: {},
+    props: { order },
   };
 };
 
