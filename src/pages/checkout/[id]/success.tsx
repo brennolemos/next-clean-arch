@@ -9,7 +9,7 @@ type CheckoutSuccessProps = {
 const CheckoutSuccess: NextPage<CheckoutSuccessProps> = ({ order }) => {
   return (
     <div>
-      <h3>Congrats! Order #ID was submited.</h3>
+      <h3>Congrats! Order {order.id} was submited.</h3>
 
       <ul>
         {order.products.map((product) => (
