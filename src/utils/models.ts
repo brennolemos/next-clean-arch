@@ -4,3 +4,9 @@ export type Product = {
   description: string;
   price: number;
 };
+
+export type Order = {
+  id: number;
+  products: Product[],
+  creditCard: string;
+}
