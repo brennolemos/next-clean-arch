@@ -16,7 +16,9 @@ const ProductDetail: NextPage<ProductDetailProps> = ({ product }) => {
       <h3>{product.name}</h3>
       <label>Price:</label>
       {product.price}
-      <button onClick={() => cartContext.addProduct(product)}>Add to cart</button>
+      <button onClick={() => cartContext.addProduct(product)}>
+        Add to cart
+      </button>
     </div>
   );
 };
@@ -31,8 +33,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: products } = await http.get("products?featured=true");
-
   return {
     paths: [],
     fallback: "blocking",
