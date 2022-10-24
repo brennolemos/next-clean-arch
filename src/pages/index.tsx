@@ -1,8 +1,9 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
-import { ListProductsUseCase } from "../@core/application/product/list-product.use-case";
+
+import { http } from "../@core/infra/http";
 import { ProductHttpGateway } from "../@core/infra/gateways/product.gateway";
-import { http } from "../utils/https";
+import { ListProductsUseCase } from "../@core/application/product/list-product.use-case";
 import { Product } from "../utils/models";
 
 type HomeProps = {
@@ -31,7 +32,7 @@ const Home: NextPage<HomeProps> = (props) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const gateway = new ProductHttpGateway(http)
+  const gateway = new ProductHttpGateway(http);
   const useCase = new ListProductsUseCase(gateway);
   const products = await useCase.execute();
 
